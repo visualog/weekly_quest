@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Weekly Quest App</title>
+    
+    <!-- PWA & Mobile Web App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Weekly Quest">
+    <link rel="apple-touch-icon" href="https://placehold.co/180x180/FF6B6B/FFFFFF?text=WQ">
+    <link rel="manifest" href='data:application/manifest+json,{
+        "name": "Weekly Quest App",
+        "short_name": "Weekly Quest",
+        "start_url": ".",
+        "display": "standalone",
+        "background_color": "#FAFAFA",
+        "theme_color": "#FF6B6B",
+        "icons": [
+            { "src": "https://placehold.co/192x192/FF6B6B/FFFFFF?text=WQ", "type": "image/png", "sizes": "192x192" },
+            { "src": "https://placehold.co/512x512/FF6B6B/FFFFFF?text=WQ", "type": "image/png", "sizes": "512x512" }
+        ]
+    }'>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #E5E7EB; /* A neutral background for the phone mockup */
+        }
+        .phone-mockup {
+            width: 100%;
+            max-width: 420px;
+            height: 100vh; /* Full height on mobile */
+            max-height: 900px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        @media (min-height: 700px) {
+             .phone-mockup {
+                height: 85vh;
+             }
+        }
+        .nav-item.active svg, .nav-item.active span {
+            color: #FF6B6B;
+        }
+        .progress-bar-fill {
+            background: linear-gradient(to right, #FF8A8A, #FF6B6B);
+            transition: width 0.5s ease-in-out;
+        }
+        /* For scrollbars */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .screen {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .bookmark-btn.bookmarked svg {
+            fill: #F39C12;
+            color: #F39C12;
+        }
+        .like-btn.liked svg {
+            fill: #E74C3C;
+            color: #E74C3C;
+        }
+        /* Apple's Corner Smoothing Effect Simulation */
+        .smooth-card {
+            border-radius: 1.75rem; /* Equivalent to larger than rounded-2xl */
+        }
+        .smooth-card-sm {
+             border-radius: 1.25rem; /* Equivalent to larger than rounded-xl */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-0 md:p-4">
+
+    <div class="phone-mockup bg-[#FAFAFA] rounded-none md:rounded-[2.5rem] border-none md:border-[10px] border-black overflow-hidden flex flex-col">
+        <!-- Main Content Area -->
+        <main class="flex-grow overflow-y-auto hide-scrollbar relative">
+            <!-- Screen: Home -->
+            <div id="screen-home" class="screen p-5 space-y-6">
+                <!-- Header -->
+                <header class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-2xl font-bold text-[#2C3E50]">주간 퀘스트</h1>
+                        <p class="text-sm text-[#7F8C8D]">월요일, 새로운 모험이 시작됐어요!</p>
+                    </div>
+                     <img src="https://placehold.co/40x40/2C3E50/FFFFFF?text=Me" class="w-10 h-10 rounded-full" alt="Profile">
+                </header>
+
+                <!-- Current Quest Card -->
+                <div class="bg-white smooth-card shadow-xl overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+                    <div class="bg-gray-100 h-48 flex items-center justify-center">
+                        <img src="https://placehold.co/400x250/FF6B6B/FFFFFF?text=Quest+Visual" alt="Quest Visual" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5">
+                        <p class="text-xs font-bold text-blue-600 uppercase">금주의 퀘스트</p>
+                        <h2 class="text-2xl font-bold text-[#2C3E50] mt-1">이탈리아 미식 여행</h2>
+                        <p class="text-base text-[#7F8C8D] mt-1">이번 주, 당신의 식탁은 이탈리아가 됩니다.</p>
+                        <hr class="my-4 border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <img src="https://placehold.co/48x48/FFFFFF/009246?text=🏆&font=noto-sans" alt="이탈리아 퀘스트 뱃지" class="w-12 h-12">
+                                <div>
+                                    <p class="font-semibold text-[#2C3E50]">위클리 퀘스트</p>
+                                    <p class="text-xs text-gray-500">참여하여 특별 배지를 획득하세요</p>
+                                </div>
+                            </div>
+                            <button class="bg-gray-100 hover:bg-gray-200 text-blue-600 font-bold py-2 px-5 rounded-full transition-colors">시작</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Today's Recipe -->
+                <div>
+                    <h3 class="font-bold text-lg mb-2 text-[#2C3E50]">오늘의 레시피</h3>
+                    <div class="bg-white p-4 smooth-card-sm shadow-md flex items-center gap-4 transition-transform duration-300 transform hover:shadow-xl hover:-translate-y-1 cursor-pointer">
+                        <img src="https://placehold.co/100x100/FFC1C1/2C3E50?text=Food" alt="Food" class="w-20 h-20 smooth-card-sm object-cover">
+                        <div class="flex-grow">
+                            <p class="font-bold">시칠리아풍 가지 파스타</p>
+                            <p class="text-sm text-[#7F8C8D]">조리 시간: 25분, 난이도: 중</p>
+                        </div>
+                        <button class="bg-[#FF6B6B] text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md">&gt;</button>
+                    </div>
+                </div>
+
+                 <!-- Upcoming / Completed -->
+                 <div>
+                    <h3 class="font-bold text-lg mb-2 text-[#2C3E50]">퀘스트 히스토리</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white p-4 smooth-card-sm shadow-sm text-center transform hover:shadow-lg transition-shadow">
+                            <p class="font-semibold">다가오는 퀘스트</p>
+                            <p class="text-sm text-gray-500 mt-1">멕시코 타코 축제 🌮</p>
+                        </div>
+                         <div class="bg-white p-4 smooth-card-sm shadow-sm text-center opacity-70">
+                            <p class="font-semibold">최근 완료</p>
+                            <p class="text-sm text-gray-500 mt-1">추억의 분식 주간 🇰🇷</p>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- Screen: Recipes -->
+            <div id="screen-recipes" class="screen hidden p-5">
+                <h1 class="text-2xl font-bold text-[#2C3E50] mb-4">레시피</h1>
+                <div class="relative mb-4">
+                    <input type="text" placeholder="레시피를 검색하세요..." class="w-full p-3 pl-10 border border-gray-200 rounded-full bg-white focus:ring-2 focus:ring-[#FF6B6B] focus:outline-none">
+                    <svg class="w-5 h-5 absolute top-1/2 left-3 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+                <div class="flex gap-2 mb-4 overflow-x-auto hide-scrollbar">
+                    <button class="filter-btn active bg-[#FF6B6B] text-white px-4 py-1.5 rounded-full text-sm flex-shrink-0">전체</button>
+                    <button class="filter-btn bg-white text-gray-700 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border">한식</button>
+                    <button class="filter-btn bg-white text-gray-700 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border">양식</button>
+                    <button class="filter-btn bg-white text-gray-700 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border">인기순</button>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="group space-y-1">
+                        <div class="relative">
+                            <img src="https://placehold.co/300x300/FFE4E1/2C3E50?text=Recipe" class="w-full h-32 object-cover smooth-card-sm" alt="Recipe 1">
+                            <button class="bookmark-btn absolute top-2 right-2 bg-white/70 backdrop-blur-sm rounded-full p-1.5 text-gray-600">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                            </button>
+                        </div>
+                        <p class="font-semibold">고소한 크림 파스타</p>
+                        <p class="text-xs text-gray-500">20분 · 초급</p>
+                    </div>
+                     <div class="space-y-1">
+                        <div class="relative">
+                            <img src="https://placehold.co/300x300/C1FFC1/2C3E50?text=Recipe" class="w-full h-32 object-cover smooth-card-sm" alt="Recipe 2">
+                            <button class="bookmark-btn absolute top-2 right-2 bg-white/70 backdrop-blur-sm rounded-full p-1.5 text-gray-600">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                            </button>
+                        </div>
+                        <p class="font-semibold">매콤 닭갈비</p>
+                        <p class="text-xs text-gray-500">35분 · 중급</p>
+                    </div>
+                     <div class="space-y-1">
+                        <div class="relative">
+                           <img src="https://placehold.co/300x300/C1C1FF/2C3E50?text=Recipe" class="w-full h-32 object-cover smooth-card-sm" alt="Recipe 3">
+                           <button class="bookmark-btn bookmarked absolute top-2 right-2 bg-white/70 backdrop-blur-sm rounded-full p-1.5">
+                                <svg class="w-5 h-5" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                            </button>
+                        </div>
+                        <p class="font-semibold">단짠단짠 궁중떡볶이</p>
+                        <p class="text-xs text-gray-500">30분 · 중급</p>
+                    </div>
+                     <div class="space-y-1">
+                         <div class="relative">
+                            <img src="https://placehold.co/300x300/FFFAC1/2C3E50?text=Recipe" class="w-full h-32 object-cover smooth-card-sm" alt="Recipe 4">
+                            <button class="bookmark-btn absolute top-2 right-2 bg-white/70 backdrop-blur-sm rounded-full p-1.5 text-gray-600">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                            </button>
+                        </div>
+                        <p class="font-semibold">든든한 김치볶음밥</p>
+                        <p class="text-xs text-gray-500">15분 · 초급</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Screen: Community -->
+            <div id="screen-community" class="screen hidden p-5 space-y-4">
+                 <h1 class="text-2xl font-bold text-[#2C3E50]">커뮤니티</h1>
+                 <div class="bg-white smooth-card shadow-md p-4">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="https://placehold.co/40x40/4ECDC4/FFFFFF?text=U" class="w-10 h-10 rounded-full" alt="User 1">
+                        <p class="font-semibold">요리초보</p>
+                    </div>
+                    <img src="https://placehold.co/400x300/4ECDC4/FFFFFF?text=Dish" class="w-full h-auto smooth-card-sm mb-3" alt="Dish photo">
+                    <p class="text-sm mb-3">#이탈리아미식여행 드디어 저도 성공했어요! 정말 맛있네요 😊</p>
+                    <div class="flex items-center text-gray-500 text-sm gap-4">
+                        <button class="like-btn flex items-center gap-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.5l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z"></path></svg>
+                            <span class="like-count">23</span>
+                        </button>
+                        <span class="flex items-center gap-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                            5
+                        </span>
+                    </div>
+                 </div>
+                 <div class="bg-white smooth-card shadow-md p-4">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="https://placehold.co/40x40/FF6B6B/FFFFFF?text=L" class="w-10 h-10 rounded-full" alt="User 2">
+                        <p class="font-semibold">집밥러버</p>
+                    </div>
+                    <img src="https://placehold.co/400x300/FF6B6B/FFFFFF?text=Dish" class="w-full h-auto smooth-card-sm mb-3" alt="Dish photo 2">
+                     <p class="text-sm mb-3">가지가 이렇게 맛있는지 몰랐어요! 다음 퀘스트 기대됩니다!</p>
+                    <div class="flex items-center text-gray-500 text-sm gap-4">
+                        <button class="like-btn flex items-center gap-1 liked">
+                           <svg class="w-5 h-5" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.5l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z"></path></svg>
+                           <span class="like-count">18</span>
+                        </button>
+                        <span class="flex items-center gap-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                            3
+                        </span>
+                    </div>
+                 </div>
+                 <!-- Floating Action Button -->
+                 <button class="absolute bottom-24 right-5 bg-[#FF6B6B] w-14 h-14 rounded-full text-white flex items-center justify-center shadow-xl">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                 </button>
+            </div>
+
+            <!-- Screen: My Page -->
+            <div id="screen-mypage" class="screen hidden p-5">
+                 <h1 class="text-2xl font-bold text-[#2C3E50] mb-4">마이페이지</h1>
+                 <div class="text-center mb-6">
+                    <img src="https://placehold.co/100x100/2C3E50/FFFFFF?text=Me" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-lg" alt="Profile">
+                    <p class="text-xl font-bold">탐험가 레벨 5</p>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                        <div id="xp-bar" class="progress-bar-fill h-2.5 rounded-full" style="width: 20%"></div>
+                    </div>
+                 </div>
+                 <div class="bg-white smooth-card shadow-md p-4 mb-4">
+                    <h3 class="font-bold mb-3">획득한 배지</h3>
+                    <div class="flex gap-4 overflow-x-auto pb-2 hide-scrollbar">
+                        <div class="text-center space-y-1 flex-shrink-0 cursor-pointer transform hover:scale-110 transition-transform">
+                            <p class="text-4xl">🇮🇹</p><p class="text-xs font-medium">이탈리아</p>
+                        </div>
+                         <div class="text-center space-y-1 flex-shrink-0 cursor-pointer transform hover:scale-110 transition-transform">
+                            <p class="text-4xl">🇰🇷</p><p class="text-xs font-medium">분식주간</p>
+                        </div>
+                         <div class="text-center space-y-1 flex-shrink-0 cursor-pointer transform hover:scale-110 transition-transform">
+                            <p class="text-4xl">🔥</p><p class="text-xs font-medium">연속7일</p>
+                        </div>
+                         <div class="text-center space-y-1 flex-shrink-0 opacity-40 cursor-pointer transform hover:scale-110 transition-transform">
+                            <p class="text-4xl">🌮</p><p class="text-xs font-medium">멕시코</p>
+                        </div>
+                         <div class="text-center space-y-1 flex-shrink-0 opacity-40 cursor-pointer transform hover:scale-110 transition-transform">
+                            <p class="text-4xl">🇯🇵</p><p class="text-xs font-medium">일본가정식</p>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="space-y-2">
+                    <button class="w-full text-left p-4 bg-white smooth-card-sm shadow-sm hover:bg-gray-50 transition-colors flex justify-between items-center">내 레시피 북마크 <span>&gt;</span></button>
+                    <button class="w-full text-left p-4 bg-white smooth-card-sm shadow-sm hover:bg-gray-50 transition-colors flex justify-between items-center">내가 올린 사진 <span>&gt;</span></button>
+                    <button class="w-full text-left p-4 bg-white smooth-card-sm shadow-sm hover:bg-gray-50 transition-colors flex justify-between items-center">설정 <span>&gt;</span></button>
+                 </div>
+            </div>
+
+        </main>
+        
+        <!-- Bottom Navigation Bar -->
+        <nav class="flex-shrink-0 bg-white border-t border-gray-200 grid grid-cols-4">
+            <button data-screen="home" class="nav-item active text-center py-3 text-gray-500">
+                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                <span class="text-xs font-medium">홈</span>
+            </button>
+             <button data-screen="recipes" class="nav-item text-center py-3 text-gray-500">
+                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m0 0a7.5 7.5 0 100-11.494a7.5 7.5 0 000 11.494z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m-4.5-4.5a4.5 4.5 0 109 0m-9 0a4.5 4.5 0 109 0"></path></svg>
+                <span class="text-xs font-medium">레시피</span>
+            </button>
+             <button data-screen="community" class="nav-item text-center py-3 text-gray-500">
+                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                <span class="text-xs font-medium">커뮤니티</span>
+            </button>
+             <button data-screen="mypage" class="nav-item text-center py-3 text-gray-500">
+                 <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                <span class="text-xs font-medium">마이</span>
+            </button>
+        </nav>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainContent = document.querySelector('main');
+            const navItems = document.querySelectorAll('.nav-item');
+            const screens = {
+                home: document.getElementById('screen-home'),
+                recipes: document.getElementById('screen-recipes'),
+                community: document.getElementById('screen-community'),
+                mypage: document.getElementById('screen-mypage'),
+            };
+
+            function switchScreen(screenName) {
+                mainContent.scrollTop = 0;
+                Object.values(screens).forEach(screen => {
+                   if(screen) screen.classList.add('hidden');
+                });
+                if (screens[screenName]) {
+                    screens[screenName].classList.remove('hidden');
+                }
+                navItems.forEach(item => {
+                    item.classList.toggle('active', item.dataset.screen === screenName);
+                });
+                if (screenName === 'mypage') {
+                    const xpBar = document.getElementById('xp-bar');
+                    if(xpBar) {
+                        setTimeout(() => { xpBar.style.width = '80%'; }, 100);
+                    }
+                } else {
+                     const xpBar = document.getElementById('xp-bar');
+                     if(xpBar) xpBar.style.width = '20%';
+                }
+            }
+
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const screenName = item.dataset.screen;
+                    switchScreen(screenName);
+                });
+            });
+
+            document.querySelectorAll('.bookmark-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    btn.classList.toggle('bookmarked');
+                    const svg = btn.querySelector('svg');
+                    if (btn.classList.contains('bookmarked')) {
+                        svg.style.fill = '#F39C12';
+                        svg.style.color = '#F39C12';
+                    } else {
+                        svg.style.fill = 'none';
+                        svg.style.color = 'currentColor';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.like-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isLiked = btn.classList.toggle('liked');
+                    const countSpan = btn.querySelector('.like-count');
+                    let currentCount = parseInt(countSpan.textContent);
+                    countSpan.textContent = isLiked ? currentCount + 1 : currentCount - 1;
+                });
+            });
+
+            switchScreen('home');
+        });
+    </script>
+</body>
+</html>
