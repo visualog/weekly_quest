@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>오프라인 - Weekly Quest App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Noto Sans KR', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+            text-align: center;
+        }
+        .offline-container {
+            max-width: 400px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 1.75rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 9999px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background-color: var(--primary-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="icon">📶</div>
+        <h1>인터넷 연결이 끊겼습니다</h1>
+        <p>현재 오프라인 상태입니다. 인터넷 연결을 확인하고 다시 시도해 주세요.</p>
+        <p>이미 방문한 페이지는 오프라인에서도 볼 수 있습니다.</p>
+        <button class="btn" onclick="tryReconnect()">다시 시도</button>
+    </div>
+
+    <script>
+        function tryReconnect() {
+            // 네트워크 상태 확인
+            if (navigator.onLine) {
+                // 온라인 상태면 홈으로 이동
+                window.location.href = '/';
+            } else {
+                // 여전히 오프라인이면 알림
+                alert('인터넷 연결을 확인해 주세요.');
+            }
+        }
+        
+        // 온라인 상태가 되면 자동으로 새로고침
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+    </script>
+</body>
+</html>

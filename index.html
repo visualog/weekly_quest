@@ -9,85 +9,35 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Weekly Quest">
-    <link rel="apple-touch-icon" href="https://placehold.co/180x180/FF6B6B/FFFFFF?text=WQ">
-    <link rel="manifest" href='data:application/manifest+json,{
-        "name": "Weekly Quest App",
-        "short_name": "Weekly Quest",
-        "start_url": ".",
-        "display": "standalone",
-        "background_color": "#FAFAFA",
-        "theme_color": "#FF6B6B",
-        "icons": [
-            { "src": "https://placehold.co/192x192/FF6B6B/FFFFFF?text=WQ", "type": "image/png", "sizes": "192x192" },
-            { "src": "https://placehold.co/512x512/FF6B6B/FFFFFF?text=WQ", "type": "image/png", "sizes": "512x512" }
-        ]
-    }'>
-
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="퀘스트 기반의 재미있는 식단 관리 앱">
+    <meta name="theme-color" content="#FF6B6B">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Weekly Quest App">
+    <meta property="og:description" content="퀘스트 기반의 재미있는 식단 관리 앱">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/screenshots/home.png">
+    
+    <!-- App Icons -->
+    <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #E5E7EB; /* A neutral background for the phone mockup */
-        }
-        .phone-mockup {
-            width: 100%;
-            max-width: 420px;
-            height: 100vh; /* Full height on mobile */
-            max-height: 900px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        @media (min-height: 700px) {
-             .phone-mockup {
-                height: 85vh;
-             }
-        }
-        .nav-item.active svg, .nav-item.active span {
-            color: #FF6B6B;
-        }
-        .progress-bar-fill {
-            background: linear-gradient(to right, #FF8A8A, #FF6B6B);
-            transition: width 0.5s ease-in-out;
-        }
-        /* For scrollbars */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .screen {
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .bookmark-btn.bookmarked svg {
-            fill: #F39C12;
-            color: #F39C12;
-        }
-        .like-btn.liked svg {
-            fill: #E74C3C;
-            color: #E74C3C;
-        }
-        /* Apple's Corner Smoothing Effect Simulation */
-        .smooth-card {
-            border-radius: 1.75rem; /* Equivalent to larger than rounded-2xl */
-        }
-        .smooth-card-sm {
-             border-radius: 1.25rem; /* Equivalent to larger than rounded-xl */
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="flex items-center justify-center min-h-screen p-0 md:p-4">
 
-    <div class="phone-mockup bg-[#FAFAFA] rounded-none md:rounded-[2.5rem] border-none md:border-[10px] border-black overflow-hidden flex flex-col">
+    <div class="phone-mockup bg-[#FAFAFA] rounded-none md:rounded-[2.5rem] border-none md:border-[10px] border-black overflow-hidden flex flex-col" role="application" aria-label="Weekly Quest 앱">
         <!-- Main Content Area -->
-        <main class="flex-grow overflow-y-auto hide-scrollbar relative">
+        <main id="main-content" class="flex-grow overflow-y-auto hide-scrollbar relative">
             <!-- Screen: Home -->
-            <div id="screen-home" class="screen p-5 space-y-6">
+            <div id="screen-home" class="screen p-5 space-y-6" role="tabpanel" aria-labelledby="nav-home">
                 <!-- Header -->
                 <header class="flex justify-between items-center">
                     <div>
@@ -151,17 +101,19 @@
             </div>
 
             <!-- Screen: Recipes -->
-            <div id="screen-recipes" class="screen hidden p-5">
+            <div id="screen-recipes" class="screen hidden p-5" role="tabpanel" aria-labelledby="nav-recipes">
                 <h1 class="text-2xl font-bold text-[#2C3E50] mb-4">레시피</h1>
                 <div class="relative mb-4">
-                    <input type="text" placeholder="레시피를 검색하세요..." class="w-full p-3 pl-10 border border-gray-200 rounded-full bg-white focus:ring-2 focus:ring-[#FF6B6B] focus:outline-none">
-                    <svg class="w-5 h-5 absolute top-1/2 left-3 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <label for="recipe-search" class="sr-only">레시피 검색</label>
+                    <input type="text" id="recipe-search" placeholder="레시피를 검색하세요..." class="w-full p-3 pl-10 border border-gray-200 rounded-full bg-white focus:ring-2 focus:ring-[#FF6B6B] focus:outline-none" aria-describedby="search-description">
+                    <svg class="w-5 h-5 absolute top-1/2 left-3 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <div id="search-description" class="sr-only">검색어를 입력하면 실시간으로 결과가 필터링됩니다.</div>
                 </div>
-                <div class="flex gap-2 mb-4 overflow-x-auto hide-scrollbar">
-                    <button class="filter-btn active bg-[#FF6B6B] text-white px-4 py-1.5 rounded-full text-sm flex-shrink-0">전체</button>
-                    <button class="filter-btn bg-white text-gray-700 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border">한식</button>
-                    <button class="filter-btn bg-white text-gray-700 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border">양식</button>
-                    <button class="filter-btn bg-white text-gray-700 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border">인기순</button>
+                <div class="flex gap-2 mb-4 overflow-x-auto hide-scrollbar" role="radiogroup" aria-label="레시피 필터링 옵션">
+                    <button class="filter-btn active bg-[#FF6B6B] text-white px-4 py-1.5 rounded-full text-sm flex-shrink-0" role="radio" aria-checked="true">전체</button>
+                    <button class="filter-btn bg-white text-gray-700 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border" role="radio" aria-checked="false">한식</button>
+                    <button class="filter-btn bg-white text-gray-700 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border" role="radio" aria-checked="false">양식</button>
+                    <button class="filter-btn bg-white text-gray-700 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border" role="radio" aria-checked="false">인기순</button>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="group space-y-1">
@@ -208,7 +160,7 @@
             </div>
 
             <!-- Screen: Community -->
-            <div id="screen-community" class="screen hidden p-5 space-y-4">
+            <div id="screen-community" class="screen hidden p-5 space-y-4" role="tabpanel" aria-labelledby="nav-community">
                  <h1 class="text-2xl font-bold text-[#2C3E50]">커뮤니티</h1>
                  <div class="bg-white smooth-card shadow-md p-4">
                     <div class="flex items-center gap-3 mb-3">
@@ -253,7 +205,7 @@
             </div>
 
             <!-- Screen: My Page -->
-            <div id="screen-mypage" class="screen hidden p-5">
+            <div id="screen-mypage" class="screen hidden p-5" role="tabpanel" aria-labelledby="nav-mypage">
                  <h1 class="text-2xl font-bold text-[#2C3E50] mb-4">마이페이지</h1>
                  <div class="text-center mb-6">
                     <img src="https://placehold.co/100x100/2C3E50/FFFFFF?text=Me" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-lg" alt="Profile">
@@ -292,93 +244,40 @@
         </main>
         
         <!-- Bottom Navigation Bar -->
-        <nav class="flex-shrink-0 bg-white border-t border-gray-200 grid grid-cols-4">
-            <button data-screen="home" class="nav-item active text-center py-3 text-gray-500">
-                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+        <nav class="flex-shrink-0 bg-white border-t border-gray-200 grid grid-cols-4" role="tablist" aria-label="주요 화면 네비게이션">
+            <button id="nav-home" data-screen="home" class="nav-item active text-center py-3 text-gray-500" role="tab" aria-selected="true" aria-controls="screen-home">
+                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                 <span class="text-xs font-medium">홈</span>
             </button>
-             <button data-screen="recipes" class="nav-item text-center py-3 text-gray-500">
-                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m0 0a7.5 7.5 0 100-11.494a7.5 7.5 0 000 11.494z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m-4.5-4.5a4.5 4.5 0 109 0m-9 0a4.5 4.5 0 109 0"></path></svg>
+             <button id="nav-recipes" data-screen="recipes" class="nav-item text-center py-3 text-gray-500" role="tab" aria-selected="false" aria-controls="screen-recipes">
+                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m0 0a7.5 7.5 0 100-11.494a7.5 7.5 0 000 11.494z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m-4.5-4.5a4.5 4.5 0 109 0m-9 0a4.5 4.5 0 109 0"></path></svg>
                 <span class="text-xs font-medium">레시피</span>
             </button>
-             <button data-screen="community" class="nav-item text-center py-3 text-gray-500">
-                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+             <button id="nav-community" data-screen="community" class="nav-item text-center py-3 text-gray-500" role="tab" aria-selected="false" aria-controls="screen-community">
+                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                 <span class="text-xs font-medium">커뮤니티</span>
             </button>
-             <button data-screen="mypage" class="nav-item text-center py-3 text-gray-500">
-                 <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+             <button id="nav-mypage" data-screen="mypage" class="nav-item text-center py-3 text-gray-500" role="tab" aria-selected="false" aria-controls="screen-mypage">
+                 <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                 <span class="text-xs font-medium">마이</span>
             </button>
         </nav>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mainContent = document.querySelector('main');
-            const navItems = document.querySelectorAll('.nav-item');
-            const screens = {
-                home: document.getElementById('screen-home'),
-                recipes: document.getElementById('screen-recipes'),
-                community: document.getElementById('screen-community'),
-                mypage: document.getElementById('screen-mypage'),
-            };
-
-            function switchScreen(screenName) {
-                mainContent.scrollTop = 0;
-                Object.values(screens).forEach(screen => {
-                   if(screen) screen.classList.add('hidden');
-                });
-                if (screens[screenName]) {
-                    screens[screenName].classList.remove('hidden');
-                }
-                navItems.forEach(item => {
-                    item.classList.toggle('active', item.dataset.screen === screenName);
-                });
-                if (screenName === 'mypage') {
-                    const xpBar = document.getElementById('xp-bar');
-                    if(xpBar) {
-                        setTimeout(() => { xpBar.style.width = '80%'; }, 100);
-                    }
-                } else {
-                     const xpBar = document.getElementById('xp-bar');
-                     if(xpBar) xpBar.style.width = '20%';
-                }
-            }
-
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const screenName = item.dataset.screen;
-                    switchScreen(screenName);
-                });
-            });
-
-            document.querySelectorAll('.bookmark-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    btn.classList.toggle('bookmarked');
-                    const svg = btn.querySelector('svg');
-                    if (btn.classList.contains('bookmarked')) {
-                        svg.style.fill = '#F39C12';
-                        svg.style.color = '#F39C12';
-                    } else {
-                        svg.style.fill = 'none';
-                        svg.style.color = 'currentColor';
-                    }
-                });
-            });
-
-            document.querySelectorAll('.like-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const isLiked = btn.classList.toggle('liked');
-                    const countSpan = btn.querySelector('.like-count');
-                    let currentCount = parseInt(countSpan.textContent);
-                    countSpan.textContent = isLiked ? currentCount + 1 : currentCount - 1;
-                });
-            });
-
-            switchScreen('home');
-        });
-    </script>
+    <!-- 접근성을 위한 스킵 내비게이션 -->    
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-white focus:text-primary-color focus:z-50">
+        메인 콘텐츠로 건너뛰기
+    </a>
+    
+    <!-- JavaScript 모듈 로드 -->    
+    <script type="module" src="js/app.js"></script>
+    
+    <!-- 오프라인 지원 알림 -->    
+    <div id="offline-notification" class="fixed top-0 left-0 right-0 bg-yellow-500 text-white text-center py-2 transform -translate-y-full transition-transform duration-300 z-50" role="alert" aria-hidden="true">
+        현재 오프라인 모드입니다. 일부 기능이 제한될 수 있습니다.
+    </div>
+    
+    <!-- 접근성 상태 알림 (스크린 리더용) -->    
+    <div id="a11y-status" class="sr-only" aria-live="polite"></div>
 </body>
 </html>

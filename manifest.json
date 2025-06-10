@@ -1,0 +1,42 @@
+{
+  "name": "Weekly Quest App",
+  "short_name": "Weekly Quest",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#FF6B6B",
+  "description": "퀘스트 기반의 재미있는 식단 관리 앱",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/screenshots/home.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "홈 화면"
+    },
+    {
+      "src": "assets/screenshots/recipes.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "레시피 화면"
+    }
+  ],
+  "categories": ["food", "lifestyle", "health"],
+  "lang": "ko-KR"
+}
