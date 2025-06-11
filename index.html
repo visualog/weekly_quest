@@ -132,7 +132,7 @@
 
     <div class="phone-mockup bg-[#FAFAFA] dark:bg-gray-800 overflow-hidden flex flex-col w-full" role="application" aria-label="Weekly Quest 앱">
         <!-- Main Content Area with Radix UI Tabs Content -->
-        <main id="main-content" class="flex-grow overflow-y-auto hide-scrollbar relative">
+        <main id="main-content" class="flex-grow overflow-y-auto hide-scrollbar relative nav-padding-bottom">
             <!-- Screen: Home -->
             <div id="screen-home" data-radix-tabs-content data-value="home" class="screen p-5 space-y-6" data-state="active" role="tabpanel" aria-labelledby="nav-home">
                 <!-- Header -->
@@ -347,8 +347,8 @@
 
         </main>
         
-        <!-- Bottom Navigation Bar with Radix UI Tabs -->
-        <nav class="flex-shrink-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-md" data-radix-tabs-root>
+        <!-- Bottom Navigation Bar with Radix UI Tabs - Apple Style -->
+        <nav class="flex-shrink-0 apple-nav" data-radix-tabs-root>
             <div class="grid grid-cols-4" role="tablist" aria-label="주요 화면 네비게이션">
                 <button id="nav-home" data-radix-tabs-trigger data-value="home" data-screen="home" class="nav-item text-center py-3 text-gray-500 dark:text-gray-300" data-state="active" role="tab" aria-selected="true" aria-controls="screen-home">
                     <div class="flex flex-col items-center">
