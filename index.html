@@ -28,44 +28,148 @@
     
     <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN 설정 -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              dark: {
+                DEFAULT: '#2C3E50',
+                50: '#8FA8C1',
+                100: '#7E9BB8',
+                200: '#5C81A6',
+                300: '#496784',
+                400: '#374F63',
+                500: '#2C3E50',
+                600: '#1E2A36',
+                700: '#10161D',
+                800: '#020304',
+                900: '#000000',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    
+    <!-- 다크 모드 초기화 스크립트 (FOUC 방지를 위해 head에 인라인으로 추가) -->
+    <script>
+      // 페이지 로드 시 또는 테마 변경 시 다크 모드 설정
+      (function() {
+        // localStorage에서 테마 설정 가져오기
+        var savedTheme = localStorage.getItem('theme');
+        // 시스템 다크 모드 설정 확인
+        var systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // 다크 모드 적용 여부 결정 (저장된 설정 또는 시스템 설정 기반)
+        var isDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark);
+        
+        // HTML 요소에 dark 클래스 추가/제거
+        document.documentElement.classList.toggle('dark', isDark);
+        
+        // 콘솔에 초기 테마 상태 기록
+        console.log('초기 테마 설정:', isDark ? '다크 모드' : '라이트 모드');
+      })();
+    </script>
+    <link rel="stylesheet" href="css/tailwind.css">
     <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Radix UI 스타일 -->
+    <style>
+        [data-radix-tabs-trigger][data-state="active"] {
+            color: #FF6B6B;
+            border-bottom: 2px solid #FF6B6B;
+        }
+        
+        [data-radix-dialog-overlay] {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 40;
+        }
+        
+        [data-radix-dialog-content] {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 450px;
+            max-height: 85vh;
+            padding: 1.5rem;
+            animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 50;
+            overflow-y: auto;
+        }
+        
+        [data-radix-toast-region] {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 50;
+            max-width: 80vw;
+        }
+        
+        @keyframes overlayShow {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes contentShow {
+            from { opacity: 0; transform: translate(-50%, -48%) scale(0.96); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+    </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-0">
+<body class="flex items-center justify-center min-h-screen p-0 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
 
-    <div class="phone-mockup bg-[#FAFAFA] overflow-hidden flex flex-col w-full" role="application" aria-label="Weekly Quest 앱">
-        <!-- Main Content Area -->
-        <main id="main-content" class="flex-grow overflow-y-auto hide-scrollbar relative">
+    <div class="phone-mockup bg-[#FAFAFA] dark:bg-gray-800 overflow-hidden flex flex-col w-full" role="application" aria-label="Weekly Quest 앱">
+        <!-- Main Content Area with Radix UI Tabs Content -->
+        <main id="main-content" class="flex-grow overflow-y-auto hide-scrollbar relative nav-padding-bottom">
             <!-- Screen: Home -->
-            <div id="screen-home" class="screen p-5 space-y-6" role="tabpanel" aria-labelledby="nav-home">
+            <div id="screen-home" data-radix-tabs-content data-value="home" class="screen p-5 space-y-6" data-state="active" role="tabpanel" aria-labelledby="nav-home">
                 <!-- Header -->
-                <header class="flex justify-between items-center">
+                <header class="flex justify-between items-center bg-white dark:bg-gray-800 p-4">
                     <div>
-                        <h1 class="text-2xl font-bold text-[#2C3E50]">주간 퀘스트</h1>
-                        <p class="text-sm text-[#7F8C8D]">월요일, 새로운 모험이 시작됐어요!</p>
+                        <h1 class="text-2xl font-bold text-[#2C3E50] dark:text-gray-100">주간 퀘스트</h1>
+                        <p class="text-sm text-[#7F8C8D] dark:text-gray-400">월요일, 새로운 모험이 시작됐어요!</p>
                     </div>
-                     <img src="https://placehold.co/40x40/2C3E50/FFFFFF?text=Me" class="w-10 h-10 rounded-full" alt="Profile">
+                    <div class="flex items-center gap-3">
+                        <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-dark-600 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-dark-500 transition-colors" aria-label="다크 모드 전환">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                        </button>
+                        <img src="https://placehold.co/40x40/2C3E50/FFFFFF?text=Me" class="w-10 h-10 rounded-full" alt="Profile">
+                    </div>
                 </header>
 
                 <!-- Current Quest Card -->
-                <div class="bg-white smooth-card shadow-xl overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
-                    <div class="bg-gray-100 h-48 flex items-center justify-center">
+                <div class="bg-white dark:bg-gray-800 smooth-card shadow-xl overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+                    <div class="bg-gray-100 dark:bg-dark-600 h-48 flex items-center justify-center">
                         <img src="https://placehold.co/400x250/FF6B6B/FFFFFF?text=Quest+Visual" alt="Quest Visual" class="w-full h-full object-cover">
                     </div>
                     <div class="p-5">
-                        <p class="text-xs font-bold text-blue-600 uppercase">금주의 퀘스트</p>
-                        <h2 class="text-2xl font-bold text-[#2C3E50] mt-1">이탈리아 미식 여행</h2>
-                        <p class="text-base text-[#7F8C8D] mt-1">이번 주, 당신의 식탁은 이탈리아가 됩니다.</p>
-                        <hr class="my-4 border-gray-200">
+                        <p class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase">금주의 퀘스트</p>
+                        <h2 class="text-2xl font-bold text-[#2C3E50] dark:text-gray-100 mt-1">이탈리아 미식 여행</h2>
+                        <p class="text-base text-[#7F8C8D] dark:text-gray-300 mt-1">이번 주, 당신의 식탁은 이탈리아가 됩니다.</p>
+                        <hr class="my-4 border-gray-200 dark:border-dark-500">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-3">
                                 <img src="https://placehold.co/48x48/FFFFFF/009246?text=🏆&font=noto-sans" alt="이탈리아 퀘스트 뱃지" class="w-12 h-12">
                                 <div>
-                                    <p class="font-semibold text-[#2C3E50]">위클리 퀘스트</p>
-                                    <p class="text-xs text-gray-500">참여하여 특별 배지를 획득하세요</p>
+                                    <p class="font-semibold text-[#2C3E50] dark:text-gray-100">위클리 퀘스트</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">참여하여 특별 배지를 획득하세요</p>
                                 </div>
                             </div>
-                            <button class="bg-gray-100 hover:bg-gray-200 text-blue-600 font-bold py-2 px-5 rounded-full transition-colors">시작</button>
+                            <button class="bg-gray-100 dark:bg-dark-600 hover:bg-gray-200 dark:hover:bg-dark-500 text-blue-600 dark:text-blue-400 font-bold py-2 px-5 rounded-full transition-colors">시작</button>
                         </div>
                     </div>
                 </div>
@@ -74,7 +178,7 @@
                 <!-- Today's Recipe -->
                 <div>
                     <h3 class="font-bold text-lg mb-2 text-[#2C3E50]">오늘의 레시피</h3>
-                    <div class="bg-white p-4 smooth-card-sm shadow-md flex items-center gap-4 transition-transform duration-300 transform hover:shadow-xl hover:-translate-y-1 cursor-pointer">
+                    <div class="bg-white dark:bg-gray-800 p-4 smooth-card-sm shadow-md flex items-center gap-4 transition-transform duration-300 transform hover:shadow-xl hover:-translate-y-1 cursor-pointer">
                         <img src="https://placehold.co/100x100/FFC1C1/2C3E50?text=Food" alt="Food" class="w-20 h-20 smooth-card-sm object-cover">
                         <div class="flex-grow">
                             <p class="font-bold">시칠리아풍 가지 파스타</p>
@@ -88,11 +192,11 @@
                  <div>
                     <h3 class="font-bold text-lg mb-2 text-[#2C3E50]">퀘스트 히스토리</h3>
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-white p-4 smooth-card-sm shadow-sm text-center transform hover:shadow-lg transition-shadow">
+                        <div class="bg-white dark:bg-gray-800 p-4 smooth-card-sm shadow-sm text-center transform hover:shadow-lg transition-shadow">
                             <p class="font-semibold">다가오는 퀘스트</p>
                             <p class="text-sm text-gray-500 mt-1">멕시코 타코 축제 🌮</p>
                         </div>
-                         <div class="bg-white p-4 smooth-card-sm shadow-sm text-center opacity-70">
+                         <div class="bg-white dark:bg-gray-800 p-4 smooth-card-sm shadow-sm text-center opacity-70">
                             <p class="font-semibold">최근 완료</p>
                             <p class="text-sm text-gray-500 mt-1">추억의 분식 주간 🇰🇷</p>
                         </div>
@@ -101,19 +205,19 @@
             </div>
 
             <!-- Screen: Recipes -->
-            <div id="screen-recipes" class="screen hidden p-5" role="tabpanel" aria-labelledby="nav-recipes">
+            <div id="screen-recipes" data-radix-tabs-content data-value="recipes" class="screen hidden p-5" data-state="inactive" role="tabpanel" aria-labelledby="nav-recipes">
                 <h1 class="text-2xl font-bold text-[#2C3E50] mb-4">레시피</h1>
                 <div class="relative mb-4">
                     <label for="recipe-search" class="sr-only">레시피 검색</label>
-                    <input type="text" id="recipe-search" placeholder="레시피를 검색하세요..." class="w-full p-3 pl-10 border border-gray-200 rounded-full bg-white focus:ring-2 focus:ring-[#FF6B6B] focus:outline-none" aria-describedby="search-description">
+                    <input type="text" id="recipe-search" placeholder="레시피를 검색하세요..." class="w-full p-3 pl-10 border border-gray-200 dark:border-gray-700 rounded-full bg-white dark:bg-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-[#FF6B6B] focus:outline-none" aria-describedby="search-description">
                     <svg class="w-5 h-5 absolute top-1/2 left-3 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     <div id="search-description" class="sr-only">검색어를 입력하면 실시간으로 결과가 필터링됩니다.</div>
                 </div>
                 <div class="flex gap-2 mb-4 overflow-x-auto hide-scrollbar" role="radiogroup" aria-label="레시피 필터링 옵션">
                     <button class="filter-btn active bg-[#FF6B6B] text-white px-4 py-1.5 rounded-full text-sm flex-shrink-0" role="radio" aria-checked="true">전체</button>
-                    <button class="filter-btn bg-white text-gray-700 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border" role="radio" aria-checked="false">한식</button>
-                    <button class="filter-btn bg-white text-gray-700 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border" role="radio" aria-checked="false">양식</button>
-                    <button class="filter-btn bg-white text-gray-700 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border" role="radio" aria-checked="false">인기순</button>
+                    <button class="filter-btn bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border dark:border-gray-600" role="radio" aria-checked="false">한식</button>
+                    <button class="filter-btn bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border dark:border-gray-600" role="radio" aria-checked="false">양식</button>
+                    <button class="filter-btn bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-1.5 rounded-full text-sm flex-shrink-0 border dark:border-gray-600" role="radio" aria-checked="false">인기순</button>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="group space-y-1">
@@ -139,7 +243,7 @@
                      <div class="space-y-1">
                         <div class="relative">
                            <img src="https://placehold.co/300x300/C1C1FF/2C3E50?text=Recipe" class="w-full h-32 object-cover smooth-card-sm" alt="Recipe 3">
-                           <button class="bookmark-btn bookmarked absolute top-2 right-2 bg-white/70 backdrop-blur-sm rounded-full p-1.5">
+                           <button class="bookmark-btn bookmarked absolute top-2 right-2 bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm rounded-full p-1.5">
                                 <svg class="w-5 h-5" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
                             </button>
                         </div>
@@ -160,9 +264,9 @@
             </div>
 
             <!-- Screen: Community -->
-            <div id="screen-community" class="screen hidden p-5 space-y-4" role="tabpanel" aria-labelledby="nav-community">
-                 <h1 class="text-2xl font-bold text-[#2C3E50]">커뮤니티</h1>
-                 <div class="bg-white smooth-card shadow-md p-4">
+            <div id="screen-community" data-radix-tabs-content data-value="community" class="screen hidden p-5 space-y-4" data-state="inactive" role="tabpanel" aria-labelledby="nav-community">
+                 <h1 class="text-2xl font-bold text-[#2C3E50] dark:text-gray-100">커뮤니티</h1>
+                 <div class="bg-white dark:bg-gray-800 smooth-card shadow-md p-4">
                     <div class="flex items-center gap-3 mb-3">
                         <img src="https://placehold.co/40x40/4ECDC4/FFFFFF?text=U" class="w-10 h-10 rounded-full" alt="User 1">
                         <p class="font-semibold">요리초보</p>
@@ -180,7 +284,7 @@
                         </span>
                     </div>
                  </div>
-                 <div class="bg-white smooth-card shadow-md p-4">
+                 <div class="bg-white dark:bg-gray-800 smooth-card shadow-md p-4">
                     <div class="flex items-center gap-3 mb-3">
                         <img src="https://placehold.co/40x40/FF6B6B/FFFFFF?text=L" class="w-10 h-10 rounded-full" alt="User 2">
                         <p class="font-semibold">집밥러버</p>
@@ -205,7 +309,7 @@
             </div>
 
             <!-- Screen: My Page -->
-            <div id="screen-mypage" class="screen hidden p-5" role="tabpanel" aria-labelledby="nav-mypage">
+            <div id="screen-mypage" data-radix-tabs-content data-value="mypage" class="screen hidden p-5" data-state="inactive" role="tabpanel" aria-labelledby="nav-mypage">
                  <h1 class="text-2xl font-bold text-[#2C3E50] mb-4">마이페이지</h1>
                  <div class="text-center mb-6">
                     <img src="https://placehold.co/100x100/2C3E50/FFFFFF?text=Me" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-white shadow-lg" alt="Profile">
@@ -214,7 +318,7 @@
                         <div id="xp-bar" class="progress-bar-fill h-2.5 rounded-full" style="width: 20%"></div>
                     </div>
                  </div>
-                 <div class="bg-white smooth-card shadow-md p-4 mb-4">
+                 <div class="bg-white dark:bg-gray-800 smooth-card shadow-md p-4 mb-4">
                     <h3 class="font-bold mb-3">획득한 배지</h3>
                     <div class="flex gap-4 overflow-x-auto pb-2 hide-scrollbar">
                         <div class="text-center space-y-1 flex-shrink-0 cursor-pointer transform hover:scale-110 transition-transform">
@@ -235,32 +339,42 @@
                     </div>
                  </div>
                  <div class="space-y-2">
-                    <button class="w-full text-left p-4 bg-white smooth-card-sm shadow-sm hover:bg-gray-50 transition-colors flex justify-between items-center">내 레시피 북마크 <span>&gt;</span></button>
-                    <button class="w-full text-left p-4 bg-white smooth-card-sm shadow-sm hover:bg-gray-50 transition-colors flex justify-between items-center">내가 올린 사진 <span>&gt;</span></button>
-                    <button class="w-full text-left p-4 bg-white smooth-card-sm shadow-sm hover:bg-gray-50 transition-colors flex justify-between items-center">설정 <span>&gt;</span></button>
+                    <button class="w-full text-left p-4 bg-white dark:bg-gray-800 smooth-card-sm shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex justify-between items-center">내 레시피 북마크 <span>&gt;</span></button>
+                    <button class="w-full text-left p-4 bg-white dark:bg-gray-800 smooth-card-sm shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex justify-between items-center">내가 올린 사진 <span>&gt;</span></button>
+                    <button class="w-full text-left p-4 bg-white dark:bg-gray-800 smooth-card-sm shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex justify-between items-center">설정 <span>&gt;</span></button>
                  </div>
             </div>
 
         </main>
         
-        <!-- Bottom Navigation Bar -->
-        <nav class="flex-shrink-0 bg-white border-t border-gray-200 grid grid-cols-4" role="tablist" aria-label="주요 화면 네비게이션">
-            <button id="nav-home" data-screen="home" class="nav-item active text-center py-3 text-gray-500" role="tab" aria-selected="true" aria-controls="screen-home">
-                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                <span class="text-xs font-medium">홈</span>
-            </button>
-             <button id="nav-recipes" data-screen="recipes" class="nav-item text-center py-3 text-gray-500" role="tab" aria-selected="false" aria-controls="screen-recipes">
-                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m0 0a7.5 7.5 0 100-11.494a7.5 7.5 0 000 11.494z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m-4.5-4.5a4.5 4.5 0 109 0m-9 0a4.5 4.5 0 109 0"></path></svg>
-                <span class="text-xs font-medium">레시피</span>
-            </button>
-             <button id="nav-community" data-screen="community" class="nav-item text-center py-3 text-gray-500" role="tab" aria-selected="false" aria-controls="screen-community">
-                <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                <span class="text-xs font-medium">커뮤니티</span>
-            </button>
-             <button id="nav-mypage" data-screen="mypage" class="nav-item text-center py-3 text-gray-500" role="tab" aria-selected="false" aria-controls="screen-mypage">
-                 <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                <span class="text-xs font-medium">마이</span>
-            </button>
+        <!-- Bottom Navigation Bar with Radix UI Tabs - Apple Style -->
+        <nav class="flex-shrink-0 apple-nav" data-radix-tabs-root>
+            <div class="grid grid-cols-4" role="tablist" aria-label="주요 화면 네비게이션">
+                <button id="nav-home" data-radix-tabs-trigger data-value="home" data-screen="home" class="nav-item text-center py-3 text-gray-500 dark:text-gray-300" data-state="active" role="tab" aria-selected="true" aria-controls="screen-home">
+                    <div class="flex flex-col items-center">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        <span class="text-xs font-medium mt-1">홈</span>
+                    </div>
+                </button>
+                <button id="nav-recipes" data-radix-tabs-trigger data-value="recipes" data-screen="recipes" class="nav-item text-center py-3 text-gray-500 dark:text-gray-300" data-state="inactive" role="tab" aria-selected="false" aria-controls="screen-recipes">
+                    <div class="flex flex-col items-center">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m0 0a7.5 7.5 0 100-11.494a7.5 7.5 0 000 11.494z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m-4.5-4.5a4.5 4.5 0 109 0m-9 0a4.5 4.5 0 109 0"></path></svg>
+                        <span class="text-xs font-medium mt-1">레시피</span>
+                    </div>
+                </button>
+                <button id="nav-community" data-radix-tabs-trigger data-value="community" data-screen="community" class="nav-item text-center py-3 text-gray-500 dark:text-gray-300" data-state="inactive" role="tab" aria-selected="false" aria-controls="screen-community">
+                    <div class="flex flex-col items-center">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span class="text-xs font-medium mt-1">커뮤니티</span>
+                    </div>
+                </button>
+                <button id="nav-mypage" data-radix-tabs-trigger data-value="mypage" data-screen="mypage" class="nav-item text-center py-3 text-gray-500 dark:text-gray-300" data-state="inactive" role="tab" aria-selected="false" aria-controls="screen-mypage">
+                    <div class="flex flex-col items-center">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        <span class="text-xs font-medium mt-1">마이</span>
+                    </div>
+                </button>
+            </div>
         </nav>
     </div>
 
@@ -269,8 +383,104 @@
         메인 콘텐츠로 건너뛰기
     </a>
     
+    <!-- Radix UI Toast 알림 영역 -->
+    <div data-radix-toast-region aria-live="polite"></div>
+    
+    <!-- Radix UI Dialog - 레시피 상세 보기 -->
+    <div data-radix-dialog-overlay data-dialog-id="recipe-detail" class="hidden"></div>
+    <div data-radix-dialog-content data-dialog-id="recipe-detail" class="hidden bg-white rounded-xl shadow-xl">
+        <div class="flex justify-between items-center border-b pb-3 mb-4">
+            <h3 class="text-xl font-bold text-dark-500">시칠리아풍 가지 파스타</h3>
+            <button data-radix-dialog-close class="text-gray-500 hover:text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div>
+            <img src="https://placehold.co/600x400/FFC1C1/2C3E50?text=시칠리아풍+가지+파스타" class="w-full h-48 object-cover rounded-lg mb-4" alt="시칠리아풍 가지 파스타">
+            
+            <div class="flex gap-2 mb-4">
+                <span class="bg-primary-100 text-primary-700 text-xs font-medium px-2.5 py-1 rounded">이탈리아</span>
+                <span class="bg-secondary-100 text-secondary-700 text-xs font-medium px-2.5 py-1 rounded">파스타</span>
+                <span class="bg-gray-100 text-gray-700 text-xs font-medium px-2.5 py-1 rounded">중급</span>
+            </div>
+            
+            <div class="mb-4">
+                <h4 class="font-bold mb-2">재료</h4>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                    <li>파스타 200g</li>
+                    <li>가지 1개</li>
+                    <li>토마토 소스 200ml</li>
+                    <li>마늘 2클로브</li>
+                    <li>올리브 오일 2스푸</li>
+                    <li>파르마산 치즈 적당히</li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bold mb-2">만드는 방법</h4>
+                <ol class="list-decimal list-inside space-y-2 text-sm">
+                    <li>가지를 작게 잘라 소금을 뽑어 15분 놓아둘니다.</li>
+                    <li>큰 팔에 올리브 오일을 두르고 마늘을 해서 향을 냅니다.</li>
+                    <li>가지를 넣고 노랍게 색이 날 때까지 구워줍니다.</li>
+                    <li>토마토 소스를 넣고 15분간 끌입니다.</li>
+                    <li>파스타를 살짝 덜는 정도로 살짝 오버데테하여 조리합니다.</li>
+                    <li>소스와 파스타를 잘 버무리고 파르마산 치즈를 뛰립니다.</li>
+                </ol>
+            </div>
+            
+            <div class="mt-6 flex justify-end">
+                <button class="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors" data-radix-dialog-close>닫기</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Radix UI Dialog - 퀴스트 시작하기 -->
+    <div data-radix-dialog-overlay data-dialog-id="start-quest" class="hidden"></div>
+    <div data-radix-dialog-content data-dialog-id="start-quest" class="hidden bg-white rounded-xl shadow-xl">
+        <div class="flex justify-between items-center border-b pb-3 mb-4">
+            <h3 class="text-xl font-bold text-dark-500">이탈리아 미식 여행 퀴스트</h3>
+            <button data-radix-dialog-close class="text-gray-500 hover:text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div>
+            <img src="https://placehold.co/600x300/FF6B6B/FFFFFF?text=이탈리아+미식+여행" class="w-full h-40 object-cover rounded-lg mb-4" alt="이탈리아 미식 여행 퀴스트">
+            
+            <div class="mb-4">
+                <h4 class="font-bold mb-2">퀴스트 소개</h4>
+                <p class="text-sm">이번 주에는 이탈리아 음식을 탓보는 여행을 떠나봅니다. 파스타, 피자, 리조토, 티라미수 등 다양한 이탈리아 음식을 집에서 직접 만들어 보세요!</p>
+            </div>
+            
+            <div class="mb-4">
+                <h4 class="font-bold mb-2">퀴스트 목표</h4>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                    <li>이탈리아 요리 3가지 이상 만들기</li>
+                    <li>이탈리아 요리사진 커뮤니티에 올리기</li>
+                    <li>이탈리아 요리 퀴즈 풀기</li>
+                </ul>
+            </div>
+            
+            <div class="mb-4">
+                <h4 class="font-bold mb-2">보상</h4>
+                <div class="flex items-center gap-3">
+                    <img src="https://placehold.co/48x48/FFFFFF/009246?text=🇮🇹&font=noto-sans" alt="이탈리아 퀴스트 배지" class="w-12 h-12">
+                    <div>
+                        <p class="font-semibold text-dark-500">이탈리아 마스터 배지</p>
+                        <p class="text-xs text-gray-500">추가 경험치 500점</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 flex justify-end gap-2">
+                <button class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors" data-radix-dialog-close>취소</button>
+                <button id="start-quest-btn" class="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors">퀴스트 시작하기</button>
+            </div>
+        </div>
+    </div>
+    
     <!-- JavaScript 모듈 로드 -->    
     <script type="module" src="js/app.js"></script>
+    <script src="js/theme-toggle.js"></script>
     
     <!-- 오프라인 지원 알림 -->    
     <div id="offline-notification" class="fixed top-0 left-0 right-0 bg-yellow-500 text-white text-center py-2 transform -translate-y-full transition-transform duration-300 z-50" role="alert" aria-hidden="true">

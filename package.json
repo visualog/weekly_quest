@@ -1,0 +1,36 @@
+{
+  "name": "weekly_quest",
+  "version": "1.0.0",
+  "description": "## **퀘스트 기반의 재미있는 식단 관리 앱 프로토타입**",
+  "main": "service-worker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "tailwindcss -i ./css/tailwind.css -o ./css/tailwind.compiled.css --minify",
+    "watch:css": "tailwindcss -i ./css/tailwind.css -o ./css/tailwind.compiled.css --watch",
+    "dev": "npm run watch:css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/visualog/weekly_quest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/visualog/weekly_quest/issues"
+  },
+  "homepage": "https://github.com/visualog/weekly_quest#readme",
+  "dependencies": {
+    "@radix-ui/react-avatar": "^1.1.10",
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-dropdown-menu": "^2.1.15",
+    "@radix-ui/react-navigation-menu": "^1.2.13",
+    "@radix-ui/react-tabs": "^1.1.12",
+    "@radix-ui/react-toast": "^1.2.14"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.4",
+    "tailwindcss": "^4.1.8"
+  }
+}

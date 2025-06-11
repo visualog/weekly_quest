@@ -15,6 +15,21 @@
   --border-radius: 1.25rem;
   --border-radius-lg: 1.75rem;
   --border-radius-xl: 2.5rem;
+  
+  /* 애플 스타일 모서리 곡률 변수 - 앱스토어 카드와 동일한 수준 */
+  --apple-curve-lg: 12px;
+  --apple-curve: 10px;
+  --apple-curve-sm: 8px;
+  
+  /* 애플 스타일 그림자 효과 */
+  --apple-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.08);
+  --apple-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.08);
+  --apple-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.08);
+  
+  /* 애플 스타일 네비게이션 바 효과 */
+  --apple-nav-blur: 10px;
+  --apple-nav-bg-light: rgba(255, 255, 255, 0.8);
+  --apple-nav-bg-dark: rgba(28, 28, 30, 0.8);
 }
 
 /* 기본 스타일 */
@@ -76,22 +91,52 @@ body {
 
 .card {
   background-color: var(--white);
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--apple-curve-lg); /* 애플 스타일 곡선으로 변경 */
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--apple-shadow); /* 애플 스타일 그림자로 변경 */
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--apple-shadow-lg); /* 애플 스타일 그림자로 변경 */
 }
 
 .card-sm {
   background-color: var(--white);
-  border-radius: var(--border-radius);
+  border-radius: var(--apple-curve-sm); /* 애플 스타일 곡선으로 변경 */
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--apple-shadow-sm); /* 애플 스타일 그림자로 변경 */
+}
+
+/* 애플 스타일 부드러운 모서리 클래스 추가 */
+.smooth-card {
+  border-radius: var(--apple-curve-lg);
+  overflow: hidden;
+  box-shadow: var(--apple-shadow); /* 애플 스타일 그림자로 변경 */
+  transition: transform 0.3s, box-shadow 0.3s;
+  -webkit-backface-visibility: hidden; /* 모서리 안티앨리어싱 개선 */
+  backface-visibility: hidden; /* 표준 속성 추가 */
+  transform: translateZ(0); /* 렌더링 성능 향상 */
+}
+
+.smooth-card:hover {
+  box-shadow: var(--apple-shadow-lg);
+}
+
+.smooth-card-sm {
+  border-radius: var(--apple-curve-sm);
+  overflow: hidden;
+  -webkit-backface-visibility: hidden; /* 모서리 안티앨리어싱 개선 */
+  backface-visibility: hidden; /* 표준 속성 추가 */
+  transform: translateZ(0); /* 렌더링 성능 향상 */
+}
+
+/* 이미지에 대한 애플 스타일 모서리 처리 */
+img.smooth-card, img.smooth-card-sm {
+  mask-image: -webkit-radial-gradient(white, black);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black); /* 표준 속성 추가 */
 }
 
 .btn {
@@ -224,7 +269,7 @@ body {
   border-width: 0;
 }
 
-/* 스크롤바 숨김 */
+/* 화면 스크롤 숨기기 */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -232,6 +277,32 @@ body {
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* 애플 스타일 네비게이션 바 */
+.apple-nav {
+  backdrop-filter: blur(var(--apple-nav-blur));
+  -webkit-backdrop-filter: blur(var(--apple-nav-blur));
+  background-color: var(--apple-nav-bg-light);
+  border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  width: 100%;
+}
+
+.dark .apple-nav {
+  background-color: var(--apple-nav-bg-dark);
+  border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* 네비게이션 바 높이만큼 하단 여백 추가 */
+.nav-padding-bottom {
+  padding-bottom: 60px; /* 네비게이션 바 높이에 맞춰 조정 */
 }
 
 /* 다크 모드 지원 */
