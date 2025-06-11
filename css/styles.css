@@ -27,10 +27,7 @@ body {
 
 .phone-mockup {
   width: 100%;
-  max-width: 420px;
   height: 100vh;
-  max-height: 900px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   background-color: var(--bg-color);
   overflow: hidden;
   display: flex;
@@ -40,18 +37,14 @@ body {
 /* 미디어 쿼리 */
 @media (min-height: 700px) {
   .phone-mockup {
-    height: 85vh;
+    height: 100vh;
   }
 }
 
 @media (min-width: 768px) {
-  body {
-    padding: 1rem;
-  }
-  
   .phone-mockup {
-    border: 10px solid black;
-    border-radius: var(--border-radius-xl);
+    width: 100%;
+    max-width: 100%;
   }
 }
 
