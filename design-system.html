@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Quest - 디자인 시스템</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <style>
+    /* 디자인 시스템 페이지 전용 스타일 */
+    .design-section {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .color-swatch {
+      width: 100px;
+      height: 100px;
+      border-radius: var(--radius-md);
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      position: relative;
+    }
+    
+    .color-swatch-label {
+      position: absolute;
+      bottom: -25px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      width: 100%;
+      text-align: center;
+    }
+    
+    .typography-sample {
+      margin-bottom: 1.5rem;
+    }
+    
+    .component-demo {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+    }
+    
+    .code-block {
+      background-color: var(--bg-secondary);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      margin: 1rem 0;
+      font-family: monospace;
+    }
+    
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 1rem;
+    }
+    
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .icon-item span {
+      margin-bottom: 0.5rem;
+      font-size: 24px;
+    }
+    
+    .icon-item p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    
+    .gradient-demo {
+      height: 100px;
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+    }
+    
+    .shadow-box {
+      width: 100px;
+      height: 100px;
+      background-color: var(--bg-color);
+      border-radius: var(--radius-md);
+      margin-right: 1rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .spacing-demo {
+      background-color: rgba(var(--primary-rgb), 0.2);
+      border-radius: var(--radius-sm);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header flex-between">
+      <h1>Weekly Quest 디자인 시스템</h1>
+      <button id="theme-toggle" class="btn-icon" aria-label="테마 전환">
+        <span class="material-symbols-rounded">dark_mode</span>
+      </button>
+    </header>
+    
+    <main class="main-content">
+      <section class="design-section">
+        <h2>개요</h2>
+        <p>Weekly Quest 디자인 시스템은 일관된 사용자 경험과 시각적 아이덴티티를 제공하기 위한 가이드라인입니다. 이 문서는 색상, 타이포그래피, 컴포넌트 등 디자인 요소들의 사용법을 정의합니다.</p>
+      </section>
+      
+      <section class="design-section">
+        <h2>색상 시스템</h2>
+        <h3>기본 색상</h3>
+        <div class="flex-wrap">
+          <div class="color-swatch" style="background-color: var(--primary-color);">
+            Primary
+            <span class="color-swatch-label">--primary-color</span>
+          </div>
+          <div class="color-swatch" style="background-color: var(--primary-light);">
+            Primary Light
+            <span class="color-swatch-label">--primary-light</span>
+          </div>
+          <div class="color-swatch" style="background-color: var(--secondary-color);">
+            Secondary
+            <span class="color-swatch-label">--secondary-color</span>
+          </div>
+          <div class="color-swatch" style="background-color: var(--bg-color); color: var(--text-color);">
+            Background
+            <span class="color-swatch-label">--bg-color</span>
+          </div>
+          <div class="color-swatch" style="background-color: var(--bg-secondary); color: var(--text-color);">
+            Bg Secondary
+            <span class="color-swatch-label">--bg-secondary</span>
+          </div>
+        </div>
+        
+        <h3>상태 색상</h3>
+        <div class="flex-wrap">
+          <div class="color-swatch" style="background-color: var(--success);">
+            Success
+            <span class="color-swatch-label">--success</span>
+          </div>
+          <div class="color-swatch" style="background-color: var(--warning);">
+            Warning
+            <span class="color-swatch-label">--warning</span>
+          </div>
+          <div class="color-swatch" style="background-color: var(--error);">
+            Error
+            <span class="color-swatch-label">--error</span>
+          </div>
+          <div class="color-swatch" style="background-color: var(--info);">
+            Info
+            <span class="color-swatch-label">--info</span>
+          </div>
+        </div>
+        
+        <h3>그라데이션</h3>
+        <div class="gradient-demo" style="background: var(--accent-blue-gradient);"></div>
+        <div class="code-block">background: var(--accent-blue-gradient);</div>
+        
+        <div class="gradient-demo" style="background: var(--accent-purple-gradient);"></div>
+        <div class="code-block">background: var(--accent-purple-gradient);</div>
+        
+        <div class="gradient-demo" style="background: var(--accent-green-gradient);"></div>
+        <div class="code-block">background: var(--accent-green-gradient);</div>
+        
+        <div class="gradient-demo" style="background: var(--accent-yellow-gradient);"></div>
+        <div class="code-block">background: var(--accent-yellow-gradient);</div>
+      </section>
+      
+      <section class="design-section">
+        <h2>타이포그래피</h2>
+        <div class="typography-sample">
+          <h1>제목 1 (Heading 1)</h1>
+          <div class="code-block">h1 { font-size: var(--text-2xl); font-weight: 700; }</div>
+        </div>
+        
+        <div class="typography-sample">
+          <h2>제목 2 (Heading 2)</h2>
+          <div class="code-block">h2 { font-size: var(--text-xl); font-weight: 600; }</div>
+        </div>
+        
+        <div class="typography-sample">
+          <h3>제목 3 (Heading 3)</h3>
+          <div class="code-block">h3 { font-size: var(--text-lg); font-weight: 600; }</div>
+        </div>
+        
+        <div class="typography-sample">
+          <p class="body-text">본문 텍스트 (Body Text)</p>
+          <div class="code-block">.body-text { font-size: var(--text-base); line-height: 1.6; }</div>
+        </div>
+        
+        <div class="typography-sample">
+          <p class="text-sm">작은 텍스트 (Small Text)</p>
+          <div class="code-block">.text-sm { font-size: var(--text-sm); }</div>
+        </div>
+        
+        <div class="typography-sample">
+          <p class="text-muted">부가 설명 텍스트 (Muted Text)</p>
+          <div class="code-block">.text-muted { color: var(--text-muted); }</div>
+        </div>
+      </section>
+      
+      <section class="design-section">
+        <h2>그림자 시스템</h2>
+        <div class="flex-wrap">
+          <div class="shadow-box" style="box-shadow: var(--shadow-sm);">
+            Small
+          </div>
+          <div class="shadow-box" style="box-shadow: var(--shadow-md);">
+            Medium
+          </div>
+          <div class="shadow-box" style="box-shadow: var(--shadow-lg);">
+            Large
+          </div>
+          <div class="shadow-box" style="box-shadow: var(--shadow-xl);">
+            XLarge
+          </div>
+        </div>
+        
+        <h3>뉴모피즘 그림자</h3>
+        <div class="flex-wrap">
+          <div class="shadow-box card-neumorphic">
+            Neumorphic
+          </div>
+          <div class="shadow-box btn-neumorphic">
+            Button
+          </div>
+        </div>
+      </section>
+      
+      <section class="design-section">
+        <h2>컴포넌트</h2>
+        
+        <h3>버튼</h3>
+        <div class="component-demo">
+          <button class="btn btn-primary">기본 버튼</button>
+          <button class="btn btn-secondary">보조 버튼</button>
+          <button class="btn btn-outline">아웃라인 버튼</button>
+          <button class="btn btn-gradient">그라데이션 버튼</button>
+          <button class="btn btn-neumorphic">뉴모피즘 버튼</button>
+          <button class="btn btn-ripple">리플 효과 버튼</button>
+        </div>
+        <div class="code-block">&lt;button class="btn btn-primary"&gt;기본 버튼&lt;/button&gt;</div>
+        
+        <h3>카드</h3>
+        <div class="component-demo">
+          <div class="card p-4">
+            <h3>기본 카드</h3>
+            <p>카드 내용이 들어갑니다.</p>
+          </div>
+          <br>
+          <div class="card card-neumorphic p-4">
+            <h3>뉴모피즘 카드</h3>
+            <p>입체적인 그림자 효과가 적용된 카드입니다.</p>
+          </div>
+          <br>
+          <div class="card glass-effect p-4">
+            <h3>글래스모피즘 카드</h3>
+            <p>반투명한 유리 효과가 적용된 카드입니다.</p>
+          </div>
+        </div>
+        <div class="code-block">&lt;div class="card card-neumorphic p-4"&gt;
+  &lt;h3&gt;뉴모피즘 카드&lt;/h3&gt;
+  &lt;p&gt;입체적인 그림자 효과가 적용된 카드입니다.&lt;/p&gt;
+&lt;/div&gt;</div>
+        
+        <h3>아이콘</h3>
+        <div class="component-demo">
+          <div class="icon-grid">
+            <div class="icon-item">
+              <span class="material-symbols-rounded">home</span>
+              <p>home</p>
+            </div>
+            <div class="icon-item">
+              <span class="material-symbols-rounded">search</span>
+              <p>search</p>
+            </div>
+            <div class="icon-item">
+              <span class="material-symbols-rounded">bookmark</span>
+              <p>bookmark</p>
+            </div>
+            <div class="icon-item">
+              <span class="material-symbols-rounded">notifications</span>
+              <p>notifications</p>
+            </div>
+            <div class="icon-item">
+              <span class="material-symbols-rounded">settings</span>
+              <p>settings</p>
+            </div>
+            <div class="icon-item">
+              <span class="material-symbols-rounded">person</span>
+              <p>person</p>
+            </div>
+            <div class="icon-item">
+              <span class="material-symbols-rounded">calendar_month</span>
+              <p>calendar_month</p>
+            </div>
+            <div class="icon-item">
+              <span class="material-symbols-rounded">add_task</span>
+              <p>add_task</p>
+            </div>
+          </div>
+        </div>
+        <div class="code-block">&lt;span class="material-symbols-rounded"&gt;home&lt;/span&gt;</div>
+      </section>
+      
+      <section class="design-section">
+        <h2>간격 시스템</h2>
+        <h3>여백 (Margin)</h3>
+        <div class="component-demo">
+          <div class="m-0 spacing-demo">m-0</div>
+          <div class="m-1 spacing-demo">m-1 (0.25rem)</div>
+          <div class="m-2 spacing-demo">m-2 (0.5rem)</div>
+          <div class="m-3 spacing-demo">m-3 (0.75rem)</div>
+          <div class="m-4 spacing-demo">m-4 (1rem)</div>
+          <div class="m-5 spacing-demo">m-5 (1.25rem)</div>
+          <div class="m-6 spacing-demo">m-6 (1.5rem)</div>
+        </div>
+        
+        <h3>패딩 (Padding)</h3>
+        <div class="component-demo">
+          <div class="p-0 spacing-demo">p-0</div>
+          <div class="p-1 spacing-demo">p-1 (0.25rem)</div>
+          <div class="p-2 spacing-demo">p-2 (0.5rem)</div>
+          <div class="p-3 spacing-demo">p-3 (0.75rem)</div>
+          <div class="p-4 spacing-demo">p-4 (1rem)</div>
+          <div class="p-5 spacing-demo">p-5 (1.25rem)</div>
+          <div class="p-6 spacing-demo">p-6 (1.5rem)</div>
+        </div>
+        
+        <h3>간격 (Gap)</h3>
+        <div class="component-demo">
+          <div class="flex-wrap gap-1">
+            <div class="spacing-demo p-2">아이템 1</div>
+            <div class="spacing-demo p-2">아이템 2</div>
+            <div class="spacing-demo p-2">아이템 3</div>
+          </div>
+          <p class="text-sm text-muted">gap-1 (0.25rem)</p>
+          
+          <div class="flex-wrap gap-4">
+            <div class="spacing-demo p-2">아이템 1</div>
+            <div class="spacing-demo p-2">아이템 2</div>
+            <div class="spacing-demo p-2">아이템 3</div>
+          </div>
+          <p class="text-sm text-muted">gap-4 (1rem)</p>
+        </div>
+      </section>
+      
+      <section class="design-section">
+        <h2>그리드 시스템</h2>
+        <div class="component-demo">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="spacing-demo p-4">그리드 아이템 1</div>
+            <div class="spacing-demo p-4">그리드 아이템 2</div>
+            <div class="spacing-demo p-4">그리드 아이템 3</div>
+            <div class="spacing-demo p-4">그리드 아이템 4</div>
+          </div>
+          <p class="text-sm text-muted">grid-cols-2</p>
+          
+          <div class="grid grid-cols-3 gap-4 mt-4">
+            <div class="spacing-demo p-4">그리드 아이템 1</div>
+            <div class="spacing-demo p-4">그리드 아이템 2</div>
+            <div class="spacing-demo p-4">그리드 아이템 3</div>
+            <div class="spacing-demo p-4">그리드 아이템 4</div>
+            <div class="spacing-demo p-4">그리드 아이템 5</div>
+            <div class="spacing-demo p-4">그리드 아이템 6</div>
+          </div>
+          <p class="text-sm text-muted">grid-cols-3</p>
+        </div>
+        <div class="code-block">&lt;div class="grid grid-cols-2 gap-4"&gt;
+  &lt;div&gt;그리드 아이템 1&lt;/div&gt;
+  &lt;div&gt;그리드 아이템 2&lt;/div&gt;
+&lt;/div&gt;</div>
+      </section>
+      
+      <section class="design-section">
+        <h2>접근성</h2>
+        <div class="component-demo">
+          <button class="btn btn-primary focus-visible">포커스 가시성 버튼</button>
+          <p class="mt-4">스크린 리더 텍스트 예시:</p>
+          <div class="code-block">&lt;span class="sr-instructions"&gt;스크린 리더에만 보이는 설명&lt;/span&gt;</div>
+          
+          <div class="mt-4">
+            <div class="status-success p-2 rounded">성공 상태</div>
+            <div class="status-warning p-2 rounded mt-2">경고 상태</div>
+            <div class="status-error p-2 rounded mt-2">오류 상태</div>
+            <div class="status-info p-2 rounded mt-2">정보 상태</div>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <footer class="footer">
+      <p>Weekly Quest 디자인 시스템 - 2025</p>
+      <a href="index.html" class="btn btn-secondary">홈으로 돌아가기</a>
+    </footer>
+  </div>
+  
+  <script src="js/theme-toggle.js"></script>
+</body>
+</html>
