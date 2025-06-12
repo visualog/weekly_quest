@@ -530,199 +530,337 @@
         </div>
       </section>
       
-      <section class="design-section">
-        <h2>그림자 시스템</h2>
-        <div class="flex-wrap">
-          <div class="shadow-box" style="box-shadow: var(--shadow-sm);">
-            Small
+      <div class="design-section" id="shadows">
+        <h2 class="section-title"><span class="material-symbols-rounded">layers</span> 그림자</h2>
+        <p class="mb-4">그림자는 UI에 깊이와 차원을 부여하여 사용자 경험을 향상시킥니다. Weekly Quest는 다양한 그림자 스타일을 제공합니다.</p>
+        
+        <div class="subsection">
+          <h3 class="mb-3">기본 그림자</h3>
+          <p class="mb-4">기본 그림자는 요소의 높이를 표현하고 사용자의 주의를 끌는 데 사용됩니다.</p>
+        </div>
+        
+        <div class="shadow-grid">
+          <div>
+            <div class="shadow-box shadow-sm">
+              <span>Small</span>
+            </div>
+            <div class="code-block mt-2">shadow-sm</div>
           </div>
-          <div class="shadow-box" style="box-shadow: var(--shadow-md);">
-            Medium
+          <div>
+            <div class="shadow-box shadow-md">
+              <span>Medium</span>
+            </div>
+            <div class="code-block mt-2">shadow-md</div>
           </div>
-          <div class="shadow-box" style="box-shadow: var(--shadow-lg);">
-            Large
+          <div>
+            <div class="shadow-box shadow-lg">
+              <span>Large</span>
+            </div>
+            <div class="code-block mt-2">shadow-lg</div>
           </div>
-          <div class="shadow-box" style="box-shadow: var(--shadow-xl);">
-            XLarge
+          <div>
+            <div class="shadow-box shadow-xl">
+              <span>Extra Large</span>
+            </div>
+            <div class="code-block mt-2">shadow-xl</div>
           </div>
         </div>
         
-        <h3>뉴모피즘 그림자</h3>
-        <div class="flex-wrap">
-          <div class="shadow-box card-neumorphic">
-            Neumorphic
+        <div class="subsection mt-8">
+          <h3 class="mb-3">특수 그림자 효과</h3>
+          <p class="mb-4">특수 그림자 효과는 요소에 고유한 스타일을 부여하여 사용자 경험을 향상시킵니다.</p>
+        </div>
+        
+        <div class="shadow-grid">
+          <div>
+            <div class="shadow-box card-neumorphic">
+              <span>Neumorphic</span>
+            </div>
+            <div class="code-block mt-2">card-neumorphic</div>
           </div>
-          <div class="shadow-box btn-neumorphic">
-            Button
+          <div>
+            <div class="shadow-box btn-neumorphic">
+              <span>Button Neumorphic</span>
+            </div>
+            <div class="code-block mt-2">btn-neumorphic</div>
+          </div>
+          <div>
+            <div class="shadow-box glass-effect">
+              <span>Glass Effect</span>
+            </div>
+            <div class="code-block mt-2">glass-effect</div>
+          </div>
+          <div>
+            <div class="shadow-box shadow-inner">
+              <span>Inner Shadow</span>
+            </div>
+            <div class="code-block mt-2">shadow-inner</div>
           </div>
         </div>
-      </section>
+      </div>
       
-      <section class="design-section">
-        <h2>컴포넌트</h2>
+      <div class="design-section" id="components">
+        <h2 class="section-title"><span class="material-symbols-rounded">widgets</span> 컴포넌트</h2>
+        <p class="mb-4">Weekly Quest는 다양한 컴포넌트를 제공하여 개발자와 디자이너가 쉽게 UI를 구축할 수 있도록 지원합니다.</p>
         
-        <h3>버튼</h3>
-        <div class="component-demo">
-          <button class="btn btn-primary">기본 버튼</button>
-          <button class="btn btn-secondary">보조 버튼</button>
-          <button class="btn btn-outline">아웃라인 버튼</button>
-          <button class="btn btn-gradient">그라데이션 버튼</button>
-          <button class="btn btn-neumorphic">뉴모피즘 버튼</button>
-          <button class="btn btn-ripple">리플 효과 버튼</button>
+        <div class="subsection">
+          <h3 class="mb-3">버튼</h3>
+          <p class="mb-4">버튼은 사용자가 액션을 취할 수 있도록 하는 중요한 요소입니다. 목적과 중요도에 따라 다양한 스타일을 제공합니다.</p>
         </div>
-        <div class="code-block">&lt;button class="btn btn-primary"&gt;기본 버튼&lt;/button&gt;</div>
         
-        <h3>카드</h3>
         <div class="component-demo">
-          <div class="card p-4">
-            <h3>기본 카드</h3>
-            <p>카드 내용이 들어갑니다.</p>
+          <div class="component-title">버튼 유형</div>
+          <div class="flex flex-wrap gap-4 items-center">
+            <div class="flex flex-col items-center">
+              <button class="btn btn-primary mb-2">기본 버튼</button>
+              <span class="text-sm text-muted">기본 버튼</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <button class="btn btn-secondary mb-2">보조 버튼</button>
+              <span class="text-sm text-muted">보조 버튼</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <button class="btn btn-outline mb-2">아웃라인 버튼</button>
+              <span class="text-sm text-muted">아웃라인 버튼</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <button class="btn btn-gradient mb-2">그라데이션 버튼</button>
+              <span class="text-sm text-muted">그라데이션 버튼</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <button class="btn btn-neumorphic mb-2">뉴모피즘 버튼</button>
+              <span class="text-sm text-muted">뉴모피즘 버튼</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <button class="btn btn-ripple mb-2">리플 효과 버튼</button>
+              <span class="text-sm text-muted">리플 효과 버튼</span>
+            </div>
           </div>
-          <br>
-          <div class="card card-neumorphic p-4">
-            <h3>뉴모피즘 카드</h3>
-            <p>입체적인 그림자 효과가 적용된 카드입니다.</p>
-          </div>
-          <br>
-          <div class="card glass-effect p-4">
-            <h3>글래스모피즘 카드</h3>
-            <p>반투명한 유리 효과가 적용된 카드입니다.</p>
+          <div class="code-block mt-4">
+<pre>&lt;button class="btn btn-primary"&gt;기본 버튼&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;보조 버튼&lt;/button&gt;
+&lt;button class="btn btn-outline"&gt;아웃라인 버튼&lt;/button&gt;
+&lt;button class="btn btn-gradient"&gt;그라데이션 버튼&lt;/button&gt;
+&lt;button class="btn btn-neumorphic"&gt;뉴모피즘 버튼&lt;/button&gt;
+&lt;button class="btn btn-ripple"&gt;리플 효과 버튼&lt;/button&gt;</pre>
           </div>
         </div>
-        <div class="code-block">&lt;div class="card card-neumorphic p-4"&gt;
-  &lt;h3&gt;뉴모피즘 카드&lt;/h3&gt;
+        
+        <div class="subsection mt-8">
+          <h3 class="mb-3">카드</h3>
+          <p class="mb-4">카드는 콘텐츠를 그룹화하고 구조화하는 데 사용됩니다. 다양한 스타일을 제공하여 디자인 언어를 풍부하게 합니다.</p>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-title">카드 유형</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="card p-4">
+              <h3 class="mb-2">기본 카드</h3>
+              <p>기본적인 카드 스타일입니다. 단순하면서도 효과적인 디자인을 제공합니다.</p>
+              <button class="btn-text mt-4">자세히 보기</button>
+            </div>
+            
+            <div class="card card-neumorphic p-4">
+              <h3 class="mb-2">뉴모피즘 카드</h3>
+              <p>입체적인 그림자 효과가 적용된 카드입니다. 모던하고 세련된 느낌을 줄 수 있습니다.</p>
+              <button class="btn-secondary mt-4">자세히 보기</button>
+            </div>
+            
+            <div class="card glass-effect p-4">
+              <h3 class="mb-2">글래스모피즘 카드</h3>
+              <p>반투명한 유리 효과가 적용된 카드입니다. 현대적이고 세련된 느낌을 줄 수 있습니다.</p>
+              <button class="btn-primary mt-4">자세히 보기</button>
+            </div>
+          </div>
+          <div class="code-block mt-4">
+<pre>&lt;div class="card p-4"&gt;
+  &lt;h3 class="mb-2"&gt;기본 카드&lt;/h3&gt;
+  &lt;p&gt;카드 내용...&lt;/p&gt;
+  &lt;button class="btn-text mt-4"&gt;자세히 보기&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div class="card card-neumorphic p-4"&gt;
+  &lt;h3 class="mb-2"&gt;뉴모피즘 카드&lt;/h3&gt;
   &lt;p&gt;입체적인 그림자 효과가 적용된 카드입니다.&lt;/p&gt;
+  &lt;button class="btn-secondary mt-4"&gt;자세히 보기&lt;/button&gt;
+&lt;/div&gt;</pre>
 &lt;/div&gt;</div>
         
-        <h3>아이콘</h3>
+        <div class="subsection mt-8">
+          <h3 class="mb-3">아이콘</h3>
+          <p class="mb-4">Weekly Quest는 Google Material Icons를 사용하여 일관된 아이콘 언어를 제공합니다. 아이콘은 UI의 시각적 요소를 강화하고 사용자 경험을 향상시킵니다.</p>
+        </div>
+        
         <div class="component-demo">
+          <div class="component-title">자주 사용되는 아이콘</div>
           <div class="icon-grid">
             <div class="icon-item">
-              <span class="material-symbols-rounded">home</span>
+              <span class="material-symbols-rounded text-2xl">home</span>
               <p>home</p>
             </div>
             <div class="icon-item">
-              <span class="material-symbols-rounded">search</span>
+              <span class="material-symbols-rounded text-2xl">search</span>
               <p>search</p>
             </div>
             <div class="icon-item">
-              <span class="material-symbols-rounded">bookmark</span>
+              <span class="material-symbols-rounded text-2xl">bookmark</span>
               <p>bookmark</p>
             </div>
             <div class="icon-item">
-              <span class="material-symbols-rounded">notifications</span>
+              <span class="material-symbols-rounded text-2xl">notifications</span>
               <p>notifications</p>
             </div>
             <div class="icon-item">
-              <span class="material-symbols-rounded">settings</span>
+              <span class="material-symbols-rounded text-2xl">settings</span>
               <p>settings</p>
             </div>
             <div class="icon-item">
-              <span class="material-symbols-rounded">person</span>
+              <span class="material-symbols-rounded text-2xl">person</span>
               <p>person</p>
             </div>
             <div class="icon-item">
-              <span class="material-symbols-rounded">calendar_month</span>
+              <span class="material-symbols-rounded text-2xl">calendar_month</span>
               <p>calendar_month</p>
             </div>
             <div class="icon-item">
-              <span class="material-symbols-rounded">add_task</span>
+              <span class="material-symbols-rounded text-2xl">add_task</span>
               <p>add_task</p>
             </div>
           </div>
+          <div class="code-block mt-4">
+<pre>&lt;span class="material-symbols-rounded"&gt;home&lt;/span&gt;
+&lt;span class="material-symbols-rounded"&gt;search&lt;/span&gt;
+&lt;span class="material-symbols-rounded"&gt;bookmark&lt;/span&gt;</pre>
+          </div>
         </div>
-        <div class="code-block">&lt;span class="material-symbols-rounded"&gt;home&lt;/span&gt;</div>
-      </section>
+      </div>
       
-      <section class="design-section">
-        <h2>간격 시스템</h2>
-        <h3>여백 (Margin)</h3>
-        <div class="component-demo">
-          <div class="m-0 spacing-demo">m-0</div>
-          <div class="m-1 spacing-demo">m-1 (0.25rem)</div>
-          <div class="m-2 spacing-demo">m-2 (0.5rem)</div>
-          <div class="m-3 spacing-demo">m-3 (0.75rem)</div>
-          <div class="m-4 spacing-demo">m-4 (1rem)</div>
-          <div class="m-5 spacing-demo">m-5 (1.25rem)</div>
-          <div class="m-6 spacing-demo">m-6 (1.5rem)</div>
+      <div class="design-section" id="spacing">
+        <h2 class="section-title"><span class="material-symbols-rounded">space_bar</span> 간격 시스템</h2>
+        <p class="mb-4">간격 시스템은 UI 요소 간의 일관된 간격을 제공하여 시각적 조화와 가독성을 향상시킵니다.</p>
+        
+        <div class="subsection">
+          <h3 class="mb-3">기본 간격</h3>
+          <p class="mb-4">Weekly Quest는 4px을 기본 단위로 하는 8의 배수 간격 시스템을 사용합니다.</p>
         </div>
         
-        <h3>패딩 (Padding)</h3>
-        <div class="component-demo">
-          <div class="p-0 spacing-demo">p-0</div>
-          <div class="p-1 spacing-demo">p-1 (0.25rem)</div>
-          <div class="p-2 spacing-demo">p-2 (0.5rem)</div>
-          <div class="p-3 spacing-demo">p-3 (0.75rem)</div>
-          <div class="p-4 spacing-demo">p-4 (1rem)</div>
-          <div class="p-5 spacing-demo">p-5 (1.25rem)</div>
-          <div class="p-6 spacing-demo">p-6 (1.5rem)</div>
+        <div class="spacing-demo">
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div class="spacing-item">
+              <div class="spacing-box p-1 bg-primary"></div>
+              <div class="spacing-label mt-2">4px (0.25rem)</div>
+              <div class="code-block mt-1">p-1, m-1</div>
+            </div>
+            <div class="spacing-item">
+              <div class="spacing-box p-2 bg-primary"></div>
+              <div class="spacing-label mt-2">8px (0.5rem)</div>
+              <div class="code-block mt-1">p-2, m-2</div>
+            </div>
+            <div class="spacing-item">
+              <div class="spacing-box p-4 bg-primary"></div>
+              <div class="spacing-label mt-2">16px (1rem)</div>
+              <div class="code-block mt-1">p-4, m-4</div>
+            </div>
+            <div class="spacing-item">
+              <div class="spacing-box p-6 bg-primary"></div>
+              <div class="spacing-label mt-2">24px (1.5rem)</div>
+              <div class="code-block mt-1">p-6, m-6</div>
+            </div>
+            <div class="spacing-item">
+              <div class="spacing-box p-8 bg-primary"></div>
+              <div class="spacing-label mt-2">32px (2rem)</div>
+              <div class="code-block mt-1">p-8, m-8</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="design-section" id="grid">
+        <h2 class="section-title"><span class="material-symbols-rounded">grid_view</span> 그리드 시스템</h2>
+        <p class="mb-4">Weekly Quest는 Tailwind CSS의 그리드 시스템을 활용하여 일관된 레이아웃과 반응형 디자인을 제공합니다.</p>
+        
+        <div class="subsection">
+          <h3 class="mb-3">반응형 그리드</h3>
+          <p class="mb-4">다양한 화면 크기에 대응하는 그리드 시스템을 제공합니다.</p>
         </div>
         
-        <h3>간격 (Gap)</h3>
-        <div class="component-demo">
-          <div class="flex-wrap gap-1">
-            <div class="spacing-demo p-2">아이템 1</div>
-            <div class="spacing-demo p-2">아이템 2</div>
-            <div class="spacing-demo p-2">아이템 3</div>
+        <div class="grid-demo">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="grid-box bg-primary text-white p-4 rounded-lg flex items-center justify-center">1</div>
+            <div class="grid-box bg-primary text-white p-4 rounded-lg flex items-center justify-center">2</div>
+            <div class="grid-box bg-primary text-white p-4 rounded-lg flex items-center justify-center">3</div>
+            <div class="grid-box bg-primary text-white p-4 rounded-lg flex items-center justify-center">4</div>
           </div>
-          <p class="text-sm text-muted">gap-1 (0.25rem)</p>
-          
-          <div class="flex-wrap gap-4">
-            <div class="spacing-demo p-2">아이템 1</div>
-            <div class="spacing-demo p-2">아이템 2</div>
-            <div class="spacing-demo p-2">아이템 3</div>
+          <div class="code-block mt-4">
+<pre>&lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"&gt;
+  &lt;div&gt;1&lt;/div&gt;
+  &lt;div&gt;2&lt;/div&gt;
+  &lt;div&gt;3&lt;/div&gt;
+  &lt;div&gt;4&lt;/div&gt;
+&lt;/div&gt;</pre>
           </div>
-          <p class="text-sm text-muted">gap-4 (1rem)</p>
         </div>
-      </section>
+      </div>
       
-      <section class="design-section">
-        <h2>그리드 시스템</h2>
-        <div class="component-demo">
-          <div class="grid grid-cols-2 gap-4">
-            <div class="spacing-demo p-4">그리드 아이템 1</div>
-            <div class="spacing-demo p-4">그리드 아이템 2</div>
-            <div class="spacing-demo p-4">그리드 아이템 3</div>
-            <div class="spacing-demo p-4">그리드 아이템 4</div>
+      <div class="design-section" id="accessibility">
+        <h2 class="section-title"><span class="material-symbols-rounded">accessibility</span> 접근성</h2>
+        <p class="mb-4">Weekly Quest는 모든 사용자가 웹사이트를 쉽게 사용할 수 있도록 다음과 같은 접근성 가이드라인을 준수합니다:</p>
+        
+        <div class="accessibility-guidelines mt-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="guideline-item p-4 bg-color rounded-lg shadow-md">
+              <span class="material-symbols-rounded text-primary text-2xl mb-2">code</span>
+              <h3 class="font-semibold mb-1">시멘틱 HTML</h3>
+              <p class="text-muted text-sm">코드에 적절한 시멘틱 HTML을 사용합니다.</p>
+            </div>
+            
+            <div class="guideline-item p-4 bg-color rounded-lg shadow-md">
+              <span class="material-symbols-rounded text-primary text-2xl mb-2">image</span>
+              <h3 class="font-semibold mb-1">Alt 텍스트</h3>
+              <p class="text-muted text-sm">모든 이미지에 적절한 alt 텍스트를 제공합니다.</p>
+            </div>
+            
+            <div class="guideline-item p-4 bg-color rounded-lg shadow-md">
+              <span class="material-symbols-rounded text-primary text-2xl mb-2">contrast</span>
+              <h3 class="font-semibold mb-1">콜러 대비</h3>
+              <p class="text-muted text-sm">콜러 대비가 WCAG 2.1 AA 기준을 충족하도록 합니다.</p>
+            </div>
+            
+            <div class="guideline-item p-4 bg-color rounded-lg shadow-md">
+              <span class="material-symbols-rounded text-primary text-2xl mb-2">keyboard</span>
+              <h3 class="font-semibold mb-1">키보드 네비게이션</h3>
+              <p class="text-muted text-sm">키보드 네비게이션을 지원합니다.</p>
+            </div>
+            
+            <div class="guideline-item p-4 bg-color rounded-lg shadow-md">
+              <span class="material-symbols-rounded text-primary text-2xl mb-2">record_voice_over</span>
+              <h3 class="font-semibold mb-1">스크린 리더 호환</h3>
+              <p class="text-muted text-sm">스크린 리더와 호환되도록 합니다.</p>
+            </div>
+            
+            <div class="guideline-item p-4 bg-color rounded-lg shadow-md">
+              <span class="material-symbols-rounded text-primary text-2xl mb-2">touch_app</span>
+              <h3 class="font-semibold mb-1">터치 타겟 크기</h3>
+              <p class="text-muted text-sm">터치 타겟은 최소 44x44px 크기를 유지합니다.</p>
+            </div>
           </div>
-          <p class="text-sm text-muted">grid-cols-2</p>
-          
-          <div class="grid grid-cols-3 gap-4 mt-4">
-            <div class="spacing-demo p-4">그리드 아이템 1</div>
-            <div class="spacing-demo p-4">그리드 아이템 2</div>
-            <div class="spacing-demo p-4">그리드 아이템 3</div>
-            <div class="spacing-demo p-4">그리드 아이템 4</div>
-            <div class="spacing-demo p-4">그리드 아이템 5</div>
-            <div class="spacing-demo p-4">그리드 아이템 6</div>
-          </div>
-          <p class="text-sm text-muted">grid-cols-3</p>
         </div>
-        <div class="code-block">&lt;div class="grid grid-cols-2 gap-4"&gt;
-  &lt;div&gt;그리드 아이템 1&lt;/div&gt;
-  &lt;div&gt;그리드 아이템 2&lt;/div&gt;
-&lt;/div&gt;</div>
-      </section>
+      </div>
       
-      <section class="design-section">
-        <h2>접근성</h2>
-        <div class="component-demo">
-          <button class="btn btn-primary focus-visible">포커스 가시성 버튼</button>
-          <p class="mt-4">스크린 리더 텍스트 예시:</p>
-          <div class="code-block">&lt;span class="sr-instructions"&gt;스크린 리더에만 보이는 설명&lt;/span&gt;</div>
-          
-          <div class="mt-4">
-            <div class="status-success p-2 rounded">성공 상태</div>
-            <div class="status-warning p-2 rounded mt-2">경고 상태</div>
-            <div class="status-error p-2 rounded mt-2">오류 상태</div>
-            <div class="status-info p-2 rounded mt-2">정보 상태</div>
-          </div>
-        </div>
-      </section>
-    </main>
+      <div class="back-to-top">
+        <a href="#" class="back-to-top-btn">
+          <span class="material-symbols-rounded">arrow_upward</span>
+        </a>
+      </div>
+    </div>
     
-    <footer class="footer">
-      <p>Weekly Quest 디자인 시스템 - 2025</p>
-      <a href="index.html" class="btn btn-secondary">홈으로 돌아가기</a>
+    <footer class="footer mt-12 py-8 border-t border-gray-200 dark:border-gray-700">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-muted mb-4 md:mb-0">Weekly Quest 디자인 시스템 - 2025</p>
+          <a href="index.html" class="btn btn-secondary">홈으로 돌아가기</a>
+        </div>
+      </div>
     </footer>
   </div>
   
